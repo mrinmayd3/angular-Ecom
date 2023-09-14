@@ -8,4 +8,5 @@ import { Product } from 'src/app/types/product';
 })
 export class RatingComponent {
   @Input() product: Product | undefined;
+  @Input() showCount: boolean | undefined;
 }

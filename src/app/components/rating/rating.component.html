@@ -15,7 +15,9 @@
     </svg>
   </p>
 
-  <span class="text-body-secondary">{{ product.rating.count }} Ratings</span>
+  <span class="text-body-secondary" *ngIf="showCount"
+    >{{ product.rating.count }} Ratings</span
+  >
 </div>
 
 <ng-template #elseBlock>
