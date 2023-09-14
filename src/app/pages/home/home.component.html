@@ -1,0 +1,27 @@
+<section
+  class="row justify-content-md-center my-5 row-gap-4 column-gap-4"
+  *ngIf="products; else elseBlock"
+>
+  <div class="card col-md-3" *ngFor="let product of products">
+    <img
+      src="{{ product.image }}"
+      class="card-img-top m-1"
+      alt="{{ product.title }}"
+    />
+    <div class="card-body">
+      <a class="card-title" [routerLink]="['/product', product.id]">{{
+        product.title.substring(0, 30)
+      }}</a>
+      <p class="card-text">{{ product.description.substring(0, 40) }}...</p>
+      <a href="#" class="btn btn-primary">Add to cart</a>
+    </div>
+  </div>
+</section>
+
+<ng-template #elseBlock>
+  <div class="d-flex justify-content-md-center mt-5">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</ng-template>
