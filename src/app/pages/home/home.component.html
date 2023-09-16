@@ -1,8 +1,8 @@
 <section
   class="row justify-content-md-center my-5 row-gap-4 column-gap-4"
-  *ngIf="products; else elseBlock"
+  *ngIf="products$ | async; else elseBlock"
 >
-  <div class="card col-md-3" *ngFor="let product of products">
+  <div class="card col-md-3" *ngFor="let product of products$ | async">
     <img
       src="{{ product.image }}"
       class="card-img-top m-1"

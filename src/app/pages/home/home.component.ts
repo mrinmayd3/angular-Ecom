@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ProductService } from 'src/app/services/product.service';
 
 // types
 import { Product } from 'src/app/types/product';
@@ -9,14 +11,11 @@ import { Product } from 'src/app/types/product';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
-  products: Product[] | undefined;
+  products$: Observable<Product[]> | undefined;
+
+  constructor(private productService: ProductService) {}
 
   ngOnInit() {
-    fetch('https://fakestoreapi.com/products')
-      .then((res) => res.json())
-      .then((json) => {
-        // console.log(json);
-        this.products = json;
-      });
+    this.products$ = this.productService.getAllProducts();
   }
 }
