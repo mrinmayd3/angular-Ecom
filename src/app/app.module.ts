@@ -11,6 +11,7 @@ import { ProductComponent } from './pages/product/product.component';
 import { RatingComponent } from './components/rating/rating.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,12 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     NavbarComponent,
     DashboardComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

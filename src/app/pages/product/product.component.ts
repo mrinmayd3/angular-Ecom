@@ -22,7 +22,7 @@ export class ProductComponent {
     this.id = this._Activatedroute.snapshot.paramMap.get('id');
 
     this.id &&
-      fetch(`https://fakestoreapi.com/products/${this.id}`)
+      fetch(`http://localhost:3000/products/${this.id}`)
         .then((res) => res.json())
         .then((json) => {
           this.product = json;

@@ -1,5 +1,16 @@
-<section>
-  <h2>Inventory</h2>
+<section class="d-flex justify-content-between align-items-center my-3">
+  <h2 class="fs-1">Inventory</h2>
+
+  <div>
+    <button
+      class="btn btn-outline-primary btn-sm"
+      data-bs-toggle="modal"
+      data-bs-target="#staticBackdrop"
+      (click)="handleAddProduct()"
+    >
+      Add product
+    </button>
+  </div>
 </section>
 
 <section
@@ -25,10 +36,12 @@
           <p class="card-text">
             {{ product.description }}
           </p>
+          <p class="card-text">$ {{ product.price }}</p>
           <p class="card-text">
-            $ {{ product.price }}
-            <small class="text-body-secondary ml-2"
-              >{{ product.rating.rate }} Rating</small
+            <small class="text-body-secondary"
+              >{{ product.rating.rate }} Rating ({{
+                product.rating.count
+              }})</small
             >
           </p>
         </div>
@@ -40,6 +53,7 @@
         class="btn btn-primary btn-sm"
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
+        (click)="handleUpdate(product.id)"
       >
         Update
       </button>
@@ -74,7 +88,9 @@
   <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          {{ formType }} product
+        </h1>
         <button
           type="button"
           class="btn-close"
@@ -83,10 +99,18 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form
+          [formGroup]="productForm"
+          (submit)="formType === 'Add' ? submitAddProduct() : submitUpdate()"
+        >
           <div class="mb-3">
             <label for="title" class="form-label">Product title</label>
-            <input type="text" class="form-control" id="title" />
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              formControlName="title"
+            />
           </div>
 
           <div class="mb-3">
@@ -98,14 +122,53 @@
               class="form-control"
               cols="30"
               rows="5"
+              formControlName="description"
             ></textarea>
           </div>
 
           <div class="mb-3">
-            <label for="price" class="form-label">Product price</label>
-            <input type="number" class="form-control" id="price" />
+            <label for="image" class="form-label">Product image URL</label>
+            <input
+              type="text"
+              class="form-control"
+              id="image"
+              formControlName="image"
+            />
           </div>
 
+          <div class="mb-3">
+            <label for="price" class="form-label">Product price $</label>
+            <input
+              type="number"
+              class="form-control"
+              id="price"
+              formControlName="price"
+            />
+          </div>
+
+          <div class="d-flex" formGroupName="rating">
+            <div class="mb-3">
+              <label for="rate" class="form-label">Rating rate</label>
+              <input
+                type="number"
+                class="form-control"
+                id="rate"
+                formControlName="rate"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="count" class="form-label">Rating count</label>
+              <input
+                type="number"
+                class="form-control"
+                id="count"
+                formControlName="count"
+              />
+            </div>
+          </div>
+
+          <!-- modal footer -->
           <div class="modal-footer">
             <button
               type="button"
@@ -114,7 +177,13 @@
             >
               Close
             </button>
-            <button type="submit" class="btn btn-primary">Update</button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="!productForm.valid"
+            >
+              {{ isLoading ? "submitting.." : formType }}
+            </button>
           </div>
         </form>
       </div>

@@ -11,6 +11,10 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
+  addProduct(value: any) {
+    return this.http.post(`${this.API}/products`, value);
+  }
+
   getAllProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.API}/products`);
   }
