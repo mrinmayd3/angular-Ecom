@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -17,14 +17,21 @@ export class DashboardComponent {
   referProducts$ = new BehaviorSubject<boolean>(true);
 
   productForm = new FormGroup({
-    title: new FormControl(''),
-    price: new FormControl(),
-    description: new FormControl(''),
-    image: new FormControl(''),
+    title: new FormControl('', [Validators.required, Validators.minLength(5)]),
+    price: new FormControl(0, [
+      Validators.required,
+      Validators.min(1),
+      Validators.max(1000),
+    ]),
+    description: new FormControl('', [
+      Validators.required,
+      Validators.minLength(10),
+    ]),
+    image: new FormControl('', Validators.required),
     category: new FormControl(''),
     rating: new FormGroup({
-      rate: new FormControl(),
-      count: new FormControl(),
+      rate: new FormControl(0),
+      count: new FormControl(0),
     }),
   });
 
@@ -65,13 +72,13 @@ export class DashboardComponent {
 
       this.productForm.setValue({
         title: filteredData.at(0)?.title!,
-        price: filteredData.at(0)?.price,
+        price: filteredData.at(0)?.price!,
         description: filteredData.at(0)?.description!,
         image: filteredData.at(0)?.image!,
         category: filteredData.at(0)?.category!,
         rating: {
-          rate: filteredData.at(0)?.rating.rate,
-          count: filteredData.at(0)?.rating.count,
+          rate: filteredData.at(0)?.rating.rate!,
+          count: filteredData.at(0)?.rating.count!,
         },
       });
     });
@@ -102,5 +109,21 @@ export class DashboardComponent {
     this.products$ = this.referProducts$.pipe(
       switchMap((_) => this.productService.getAllProducts())
     );
+  }
+
+  get title() {
+    return this.productForm.get('title');
+  }
+
+  get description() {
+    return this.productForm.get('description');
+  }
+
+  get price() {
+    return this.productForm.get('price');
+  }
+
+  get image() {
+    return this.productForm.get('image');
   }
 }
