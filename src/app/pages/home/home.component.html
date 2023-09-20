@@ -15,7 +15,7 @@
       <p class="card-text">{{ product.description.substring(0, 40) }}...</p>
 
       <div class="d-flex align-items-center justify-content-between">
-        <a href="#" class="btn btn-primary">Add to cart</a>
+        <a (click)="addToCart(product)" class="btn btn-primary">Add to cart</a>
         <app-rating [product]="product" />
       </div>
     </div>
