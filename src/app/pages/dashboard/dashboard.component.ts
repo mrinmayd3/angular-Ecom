@@ -54,6 +54,7 @@ export class DashboardComponent {
       // console.log(data);
 
       this.referProducts$.next(false);
+      this.productForm.reset();
     });
   }
 
