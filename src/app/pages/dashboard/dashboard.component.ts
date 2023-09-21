@@ -42,11 +42,13 @@ export class DashboardComponent {
   constructor(private productService: ProductService) {}
 
   // add product
+  // @desc: on click add product form modal will pop up
   handleAddProduct() {
     this.productForm.reset();
     this.formType = 'Add';
   }
 
+  // @desc: submit handler for add new product
   submitAddProduct() {
     this.productService.addProduct(this.productForm.value).subscribe((data) => {
       // console.log(data);
@@ -63,6 +65,7 @@ export class DashboardComponent {
   }
 
   // update product
+  // @desc: on click update product form modal will pop up
   handleUpdate(id: number) {
     this.updateProductId = id;
     this.formType = 'Update';
@@ -84,6 +87,7 @@ export class DashboardComponent {
     });
   }
 
+  // @desc: submit handler for update product
   submitUpdate() {
     this.isLoading = true;
 
@@ -105,12 +109,14 @@ export class DashboardComponent {
       .catch((e) => console.log(e));
   }
 
+  // on component mount fetching the data from api
   ngOnInit() {
     this.products$ = this.referProducts$.pipe(
       switchMap((_) => this.productService.getAllProducts())
     );
   }
 
+  //  getting fromControl values
   get title() {
     return this.productForm.get('title');
   }

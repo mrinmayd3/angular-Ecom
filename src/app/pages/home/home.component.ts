@@ -19,10 +19,12 @@ export class HomeComponent {
     private cartService: CartService
   ) {}
 
+  // on component mount fetching the data from api
   ngOnInit() {
     this.products$ = this.productService.getAllProducts();
   }
 
+  // add a product to cart
   addToCart(product: Product) {
     this.cartService.addToCart(product);
   }

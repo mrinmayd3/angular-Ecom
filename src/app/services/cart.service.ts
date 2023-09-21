@@ -16,18 +16,17 @@ export class CartService {
 
   constructor() {}
 
+  // add product to cart
   addToCart(product: Product) {
-    console.log(this.cartItems());
     this.cartItems.mutate((val) => {
       val.push(product);
     });
   }
 
+  // remove a product from a cart
   removeProduct(id: number) {
     this.cartItems.mutate((val) => {
       val.splice(id, 1);
     });
-
-    console.log(this.cartItems());
   }
 }

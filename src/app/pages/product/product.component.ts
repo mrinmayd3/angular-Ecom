@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { CartService } from 'src/app/services/cart.service';
 
 // types
 import { Product } from 'src/app/types/product';
@@ -15,9 +16,12 @@ export class ProductComponent {
 
   constructor(
     private _Activatedroute: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    public cartService: CartService
   ) {}
 
+  // on component mount fetching the data from api
+  // based on url id param
   ngOnInit() {
     this.id = this._Activatedroute.snapshot.paramMap.get('id');
 
@@ -26,7 +30,7 @@ export class ProductComponent {
         .then((res) => res.json())
         .then((json) => {
           this.product = json;
-          console.log(json);
+          // console.log(json);
         });
   }
 }
