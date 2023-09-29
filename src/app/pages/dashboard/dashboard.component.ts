@@ -55,6 +55,11 @@ export class DashboardComponent {
 
       this.referProducts$.next(false);
       this.productForm.reset();
+
+      const modal: HTMLButtonElement | null =
+        document.querySelector('#closeModal');
+
+      modal?.click();
     });
   }
 
@@ -106,6 +111,13 @@ export class DashboardComponent {
       .then((data) => {
         this.referProducts$.next(false);
         this.isLoading = false;
+        this.productForm.reset();
+
+        // dismiss the modal
+        const modal: HTMLButtonElement | null =
+          document.querySelector('#closeModal');
+
+        modal?.click();
       })
       .catch((e) => console.log(e));
   }
