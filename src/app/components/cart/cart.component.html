@@ -22,11 +22,11 @@
       <!-- if there is any cart product -->
       <div
         class="modal-body"
-        *ngIf="cartService.cartItems().length > 0; else elseBlock"
+        *ngIf="cartService.cartItems.length > 0; else elseBlock"
       >
         <div
           class="d-flex align-items-center"
-          *ngFor="let product of cartService.cartItems(); let i = index"
+          *ngFor="let product of cartService.cartItems; let i = index"
         >
           <img
             src="{{ product.image }}"
@@ -64,7 +64,7 @@
       </ng-template>
 
       <div class="modal-footer gap-5">
-        <h4>Sub-Total: $ {{ cartService.subTotal() }}</h4>
+        <h4>Sub-Total: $ {{ cartService.subTotal.toFixed(2) }}</h4>
 
         <button type="button" class="btn btn-success btn-sm">
           <svg
